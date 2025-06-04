@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
 export default function Contact() {
@@ -14,8 +15,40 @@ export default function Contact() {
     subject: "",
     message: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+
+  const contactMutation = useMutation({
+    mutationFn: async (data: typeof formData) => {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || "Failed to send message");
+      }
+      
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for contacting us. We'll get back to you soon.",
+      });
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Message Failed",
+        description: error.message || "Please try again later.",
+        variant: "destructive",
+      });
+    },
+  });
 
   useEffect(() => {
     document.title = "Contact Tesla Reimagined | Get in Touch";
@@ -41,17 +74,7 @@ export default function Contact() {
       return;
     }
 
-    setIsLoading(true);
-
-    // Simulate API call
-    setTimeout(() => {
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for contacting us. We'll get back to you soon.",
-      });
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      setIsLoading(false);
-    }, 1000);
+    contactMutation.mutate(formData);
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -89,7 +112,7 @@ export default function Contact() {
                         value={formData.name}
                         onChange={(e) => handleInputChange("name", e.target.value)}
                         placeholder="Your full name"
-                        disabled={isLoading}
+                        disabled={contactMutation.isPending}
                       />
                     </div>
                     <div>
@@ -99,7 +122,7 @@ export default function Contact() {
                         value={formData.email}
                         onChange={(e) => handleInputChange("email", e.target.value)}
                         placeholder="your@email.com"
-                        disabled={isLoading}
+                        disabled={contactMutation.isPending}
                       />
                     </div>
                   </div>
@@ -127,16 +150,16 @@ export default function Contact() {
                       onChange={(e) => handleInputChange("message", e.target.value)}
                       placeholder="Tell us how we can help you..."
                       rows={5}
-                      disabled={isLoading}
+                      disabled={contactMutation.isPending}
                     />
                   </div>
                   
                   <Button
                     type="submit"
-                    disabled={isLoading}
+                    disabled={contactMutation.isPending}
                     className="w-full py-3 bg-gradient-to-r from-[hsl(var(--electric-blue))] to-[hsl(var(--energy-orange))] text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
                   >
-                    {isLoading ? "Sending..." : "Send Message"}
+                    {contactMutation.isPending ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
               </CardContent>

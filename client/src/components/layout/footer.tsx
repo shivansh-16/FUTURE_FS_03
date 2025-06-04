@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { SiTwitter, SiFacebook, SiInstagram, SiYoutube } from "react-icons/si";
+import { Twitter, Facebook, Instagram, Youtube } from "lucide-react";
 
 const footerSections = [
   {
@@ -35,10 +35,10 @@ const footerSections = [
 ];
 
 const socialLinks = [
-  { icon: SiTwitter, href: "https://twitter.com/tesla", label: "Twitter" },
-  { icon: SiFacebook, href: "https://facebook.com/tesla", label: "Facebook" },
-  { icon: SiInstagram, href: "https://instagram.com/teslamotors", label: "Instagram" },
-  { icon: SiYoutube, href: "https://youtube.com/tesla", label: "YouTube" },
+  { icon: Twitter, href: "https://twitter.com/tesla", label: "Twitter" },
+  { icon: Facebook, href: "https://facebook.com/tesla", label: "Facebook" },
+  { icon: Instagram, href: "https://instagram.com/teslamotors", label: "Instagram" },
+  { icon: Youtube, href: "https://youtube.com/tesla", label: "YouTube" },
 ];
 
 export default function Footer() {

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
-  navLinks: Array<{ href: string; label: string }>;
+  navLinks: Array<{ id: string; href: string; label: string }>;
 }
 
 export default function MobileMenu({ isOpen, onClose, navLinks }: MobileMenuProps) {
@@ -31,7 +31,7 @@ export default function MobileMenu({ isOpen, onClose, navLinks }: MobileMenuProp
         <div className="p-4 space-y-4">
           {navLinks.map((link) => (
             <Link
-              key={link.href}
+              key={link.id}
               href={link.href}
               className="block py-3 text-lg text-[hsl(var(--deep-charcoal))] hover:text-[hsl(var(--electric-blue))] transition-colors"
               onClick={onClose}

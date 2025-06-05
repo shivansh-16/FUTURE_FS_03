@@ -4,12 +4,13 @@ import { Search, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MobileMenu from "@/components/ui/mobile-menu";
 
+// Navigation links configuration with unique IDs to prevent React key conflicts
 const navLinks = [
-  { href: "/vehicles", label: "Vehicles" },
-  { href: "/energy", label: "Energy" },
-  { href: "/about", label: "Charging" },
-  { href: "/about", label: "Discover" },
-  { href: "/contact", label: "Shop" },
+  { id: "vehicles", href: "/vehicles", label: "Vehicles" },
+  { id: "energy", href: "/energy", label: "Energy" },
+  { id: "charging", href: "/charging", label: "Charging" },
+  { id: "about", href: "/about", label: "About" },
+  { id: "contact", href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -31,7 +32,7 @@ export default function Navbar() {
             <div className="hidden md:flex items-center space-x-8">
               {navLinks.map((link) => (
                 <Link
-                  key={link.href}
+                  key={link.id}
                   href={link.href}
                   className={`transition-colors duration-300 ${
                     location === link.href

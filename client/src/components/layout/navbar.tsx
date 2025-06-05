@@ -13,6 +13,10 @@ const navLinks = [
   { id: "contact", href: "/contact", label: "Contact" },
 ];
 
+/**
+ * Main navigation component with responsive design
+ * Features: Glass effect, mobile menu, gradient branding
+ */
 export default function Navbar() {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

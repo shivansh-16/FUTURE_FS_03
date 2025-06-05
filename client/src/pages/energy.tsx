@@ -41,7 +41,7 @@ export default function Energy() {
   }, []);
 
   return (
-    <div className="pt-16 min-h-screen bg-[hsl(var(--warm-white))]">
+    <div className="pt-16 min-h-screen bg-background">
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-[hsl(var(--deep-charcoal))] to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

@@ -2,9 +2,14 @@ import { useState, useEffect } from "react";
 import { ChevronDown, Zap, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+/**
+ * Hero section component with dynamic animations and Tesla performance stats
+ * Features: Floating background elements, gradient text, performance metrics
+ */
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
 
+  // Trigger entrance animations after component mounts
   useEffect(() => {
     setIsVisible(true);
   }, []);
